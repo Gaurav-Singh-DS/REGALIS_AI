@@ -8,7 +8,7 @@ REGALIS AI is an AI-powered regulatory reporting and risk intelligence platform 
 By combining a modern web interface, cloud-based data services, and generative AI, REGALIS AI aims to make regulatory risk investigation more accessible, explainable, and efficient.
 
 <p align="center">
-  <a href="https://regalis-ai-4f46e.web.app">
+  <a href="https://regalis-ai-4f46e.web.app/">
     <strong>Live Demo</strong>
   </a>
   &nbsp; | &nbsp;
