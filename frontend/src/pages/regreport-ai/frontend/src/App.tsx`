@@ -1,0 +1,40 @@
+import React, { useState, useEffect } from 'react';
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { auth } from './services/firebase';
+import { LoginPage } from './pages/LoginPage';
+import { InvestigationPage } from './pages/InvestigationPage';
+
+function App() {
+  const [user, setUser] = useState<User | null>(null);
+  const [initializing, setInitializing] = useState(true);
+
+  useEffect(() => {
+    // Listen for auth state changes
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setInitializing(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  if (initializing) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <LoginPage />;
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <InvestigationPage reportId="rep_credit_risk_2026_09" />
+    </div>
+  );
+}
+
+export default App;

@@ -1,0 +1,71 @@
+import React, { useState } from 'react';
+import { signInWithGoogle, logout, auth } from '../services/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+
+export const LoginPage: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleLogin = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await signInWithGoogle();
+    } catch (err: any) {
+      setError(err.message || 'Failed to sign in with Google');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+      <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-3xl shadow-xl border border-slate-100 text-center">
+        <div>
+          <div className="mx-auto h-16 w-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-3xl font-bold mb-6">
+            RA
+          </div>
+          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+            Welcome Back
+          </h2>
+          <p className="mt-2 text-slate-500">
+            Sign in to access the NovaBank Regulatory Intelligence Platform
+          </p>
+        </div>
+
+        <div className="mt-8 space-y-4">
+          {error && (
+            <div className="p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-100">
+              {error}
+            </div>
+          )}
+          <button
+            onClick={handleLogin}
+            disabled={loading}
+            className="w-full flex items-center justify-center gap-3 bg-white border border-slate-300 text-slate-700 px-4 py-3 rounded-xl font-semibold hover:bg-slate-50 transition-all duration-200 active:scale-95 disabled:opacity-50"
+          >
+            {loading ? (
+              <svg className="animate-spin h-5 w-5 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.918l3-2.628z"></path>
+              </svg>
+            ) : (
+              <svg className="h-5 w-5" viewBox="0 0 24 24">
+                <path fill="#EA4335" d="M12.48 10.92v3.28h7.84c-.24 1.84-2.09 5.48-7.84 5.48-4.78 0-8.64-3.86-8.64-8.64s3.86-8.64 8.64-8.64c2.7 0 4.62 1.11 5.,2.12l2.6-2.6C19.57 1.13 16.43 0 12.48 0 6.3 0 1 6.3 1 12.48s5.3 12.48 11.48 12.48c6.67 0 11.33-5.67 11.33-11.33 0-.75-.09-1.44-.2ist-2.12-3.28z"/>
+              </svg>
+            )}
+            Continue with Google
+          </button>
+        </div>
+
+        <div className="mt-8 text-center">
+          <p className="text-xs text-slate-400">
+            By continuing, you agree to NovaBank's <br />
+            <a href="#" className="underline hover:text-slate-600">Security Policy</a> and <a href="#" className="underline hover:text-slate-600">Terms of Service</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+EOF

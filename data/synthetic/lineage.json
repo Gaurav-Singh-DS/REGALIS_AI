@@ -1,0 +1,42 @@
+[
+  {
+    "id": "L1",
+    "name": "Raw Transactions",
+    "type": "Source",
+    "downstream": [
+      "L2"
+    ]
+  },
+  {
+    "id": "L2",
+    "name": "Customer Risk Job",
+    "type": "Transformation",
+    "upstream": [
+      "L1"
+    ],
+    "downstream": [
+      "L3"
+    ],
+    "code_ref": "customer_risk.sas"
+  },
+  {
+    "id": "L3",
+    "name": "Exposure Calculation",
+    "type": "Transformation",
+    "upstream": [
+      "L2"
+    ],
+    "downstream": [
+      "L4"
+    ],
+    "code_ref": "exposure_calculation.sql"
+  },
+  {
+    "id": "L4",
+    "name": "Regulatory Report",
+    "type": "Final Report",
+    "upstream": [
+      "L3"
+    ]
+  }
+]

@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+ENV/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build / generated artifacts
+build/
+dist/
+coverage/
+*.egg-info/
+
+# Node / React / Vite
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.firebase/
+frontend/.cache/
+frontend/.vite/
+.firebase/
+.firebaserc
+
+# Firebase / deployment local state
+.firebase/
+*.log
+
+# IDE / editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
